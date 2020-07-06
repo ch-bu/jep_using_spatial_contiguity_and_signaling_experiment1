@@ -19,6 +19,7 @@ UNIANOVA global_cohesion_revision BY treatment WITH global_cohesion_draft
   /METHOD=SSTYPE(3)
   /INTERCEPT=INCLUDE
   /CRITERIA=ALPHA(0.05)
+  /PRINT=ETASQ
   /DESIGN=global_cohesion_draft treatment.
 
 
