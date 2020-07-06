@@ -25,6 +25,7 @@ UNIANOVA num_non_coh_sentences_revision BY treatment WITH num_non_coh_sentences_
 UNIANOVA num_non_coh_sentences_revision BY treatment WITH num_non_coh_sentences_draft
   /METHOD=SSTYPE(3)
   /INTERCEPT=INCLUDE
+  /PRINT=ETASQ
   /CRITERIA=ALPHA(0.05)
   /DESIGN=num_non_coh_sentences_draft treatment.
 

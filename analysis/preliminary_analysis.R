@@ -21,10 +21,17 @@ data_wide %>%
   count(treatment)
 
 # Difference in age
-aov(age ~ treatment, data = data_wide) %>% summary
+jmv::ANOVA(
+  formula = age ~ treatment,
+  data = data_wide,
+  effectSize = "partEta")
 
 # Difference in number of semesters
-aov(num_semester ~ treatment, data = data_wide) %>% summary
+# Previous: aov(num_semester ~ treatment, data = data_wide) %>% summary
+jmv::ANOVA(
+  formula = num_semester ~ treatment,
+  data = data_wide,
+  effectSize = "partEta")
 
 # Difference in gender
 jmv::contTables(
@@ -52,13 +59,23 @@ jmv::anovaRM(
 
 
 # Difference in reading skill - sentence verification
-aov(elves_sf ~ treatment, data = data_wide) %>% summary
+jmv::ANOVA(
+  formula = elves_sf ~ treatment,
+  data = data_wide,
+  effectSize = "partEta")
 
 # Difference in reading skill - reading skill
-aov(elves_tv ~ treatment, data = data_wide) %>% summary
+jmv::ANOVA(
+  formula = elves_tv ~ treatment,
+  data = data_wide,
+  effectSize = "partEta")
+
 
 # Difference in number of sentences in draft
-aov(num_sentences_draft ~ treatment, data = data_wide) %>% summary
+jmv::ANOVA(
+  formula = num_sentences_draft ~ treatment,
+  data = data_wide,
+  effectSize = "partEta")
 
 # Difference in local cohesion in draft
 jmv::ANOVA(
