@@ -2,6 +2,31 @@ library(tidyverse)
 library(cowplot)
 library(hrbrthemes)
 
+base_theme <- theme(
+  plot.margin = unit(rep(2, 4), "cm"),
+  axis.text = element_text(size = 26, angle = 0,
+                           hjust = 0.5, color = "black"),
+  axis.text.x = element_text(size = 17, margin = margin(t = 10)),
+  axis.title.y = element_text(margin = margin(r = 30), hjust = 0.5, 
+                              face = "bold",
+                              size = 17, color = "black"),
+  axis.text.y = element_text(size = 17, margin = margin(r = 10)),
+  panel.grid.major.y = element_line(color = "#b1b1b2", size = 0.4),
+  panel.grid.major.x = element_blank(),
+  panel.grid.minor.y = element_blank(),
+  panel.grid.minor.x = element_blank(),
+  axis.line = element_line(color = "black", size = 0.5),
+  axis.ticks.x = element_line(color = "black"),
+  axis.ticks.y = element_line(color = "black")
+) 
+
+set_base_theme <- function() {
+  theme_set(theme_ipsum_tw(base_size = 18) +
+              base_theme)
+}
+
+set_base_theme()
+
 cohesion_data <- tibble(
   feedback = c("spatially contiguous\nfeedback",
                "correspondence-enhanced\nconcept-map feedback",
@@ -27,35 +52,17 @@ cohesion_data <- tibble(
                              "no feedback")
     ) %>% 
     ggplot(aes(feedback, empirical, group = 1)) +
-    geom_col(fill = "#8b8b8b", color = "black") + 
+    geom_col(fill = "#727272", color = "black", width = .8, alpha = .9) + 
     geom_errorbar(aes(ymin = empirical - se,
                       ymax = empirical + se),
                   color = "#22292F",
                   width = .1) +  
-    scale_y_continuous(limits = c(0, 6.3), breaks = seq(0, 8, by = 1),
+    scale_y_continuous(limits = c(0, 7), breaks = seq(0, 7, by = 1),
                        expand = c(0, 0)) +
-    theme_ipsum_tw() +
     guides(color = FALSE) +
-    theme(
-      plot.margin = unit(rep(2, 4), "cm"),
-      axis.text = element_text(size = 26, angle = 0,
-                               hjust = 0.5, color = "black"),
-      axis.text.x = element_text(size = 16, margin = margin(t = 10)),
-      axis.title.y = element_text(margin = margin(r = 30), hjust = 0.5, face = "bold",
-                                  size = 18, color = "#000000"),
-      axis.text.y = element_text(size = 16, margin = margin(r = 10)),
-      panel.grid.major.y = element_blank(),
-      panel.grid.major.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.grid.minor.x = element_blank(),
-      axis.line = element_line(color = "black"),
-      axis.ticks.x = element_line(color = "black"),
-      axis.ticks.y = element_line(color = "black")
-    ) +
-    scale_color_grey(start = 0, end = 0.7) +
     labs(
       x = "",
-      y = "Local cohesion\n(number of unconnected\nadjacent sentences)"
+      y = "Local cohesion"
     ))
 
 (global_cohesion_plot <- cohesion_data %>% 
@@ -67,33 +74,15 @@ cohesion_data <- tibble(
                              "no feedback")
     ) %>% 
     ggplot(aes(feedback, empirical, group = 1)) +
-    geom_col(fill = "#8b8b8b", color = "black") + 
+    geom_col(fill = "#727272", color = "black", width = .8, alpha = .9) + 
     geom_errorbar(aes(ymin = empirical - se,
                       ymax = empirical + se),
                   color = "#22292F",
                   width = .1) +
-    scale_y_continuous(limits = c(0, 3.4),
-                       breaks = seq(0, 4, by = 1),
+    scale_y_continuous(limits = c(0, 3.5),
+                       breaks = seq(0, 3.5, by = 0.5),
                        expand = c(0, 0)) +
-    theme_ipsum_tw() +
     guides(color = FALSE) +
-    theme(
-      plot.margin = unit(rep(2, 4), "cm"),
-      axis.text = element_text(size = 26, angle = 0,
-                               hjust = 0.5, color = "black"),
-      axis.text.x = element_text(size = 16, margin = margin(t = 10)),
-      axis.title.y = element_text(margin = margin(r = 30), hjust = 0.5, face = "bold",
-                                  size = 18, color = "#000000"),
-      axis.text.y = element_text(size = 16, margin = margin(r = 10)),
-      panel.grid.major.y = element_blank(),
-      panel.grid.major.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.grid.minor.x = element_blank(),
-      axis.line = element_line(color = "black"),
-      axis.ticks.x = element_line(color = "black"),
-      axis.ticks.y = element_line(color = "black")
-    ) +
-    scale_color_grey(start = 0, end = 0.7) +
     labs(
       x = "",
       y = "Global cohesion"
@@ -101,8 +90,9 @@ cohesion_data <- tibble(
 
 plot_grid(local_cohesion_plot, global_cohesion_plot,
           labels = c("Local-cohesion-hypothesis", "Global-cohesion-hypothesis"),
-          ncol = 1, align = "v", axis = "b")
+          ncol = 1, align = "v", axis = "b",
+          label_size = 20)
 
 
-ggsave("manuscript/figures/figure3.png", width = 39, height = 47, unit = "cm")
+ggsave("figures/figure3.png", width = 36, height = 42, unit = "cm")
 
