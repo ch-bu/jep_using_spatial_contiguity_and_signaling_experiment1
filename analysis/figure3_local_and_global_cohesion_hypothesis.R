@@ -11,7 +11,7 @@ base_theme <- theme(
                               face = "bold",
                               size = 17, color = "black"),
   axis.text.y = element_text(size = 17, margin = margin(r = 10)),
-  panel.grid.major.y = element_line(color = "#b1b1b2", size = 0.4),
+  panel.grid.major.y = element_line(color = "#d0d0d0", size = 0.4),
   panel.grid.major.x = element_blank(),
   panel.grid.minor.y = element_blank(),
   panel.grid.minor.x = element_blank(),
@@ -52,7 +52,7 @@ cohesion_data <- tibble(
                              "no feedback")
     ) %>% 
     ggplot(aes(feedback, empirical, group = 1)) +
-    geom_col(fill = "#727272", color = "black", width = .8, alpha = .9) + 
+    geom_col(fill = "#727272", color = "black", width = .8, alpha = .95) + 
     geom_errorbar(aes(ymin = empirical - se,
                       ymax = empirical + se),
                   color = "#22292F",
@@ -74,7 +74,7 @@ cohesion_data <- tibble(
                              "no feedback")
     ) %>% 
     ggplot(aes(feedback, empirical, group = 1)) +
-    geom_col(fill = "#727272", color = "black", width = .8, alpha = .9) + 
+    geom_col(fill = "#727272", color = "black", width = .8, alpha = .95) + 
     geom_errorbar(aes(ymin = empirical - se,
                       ymax = empirical + se),
                   color = "#22292F",

@@ -11,7 +11,7 @@ base_theme <- theme(
                               face = "bold",
                               size = 9, color = "black"),
   axis.text.y = element_text(size = 9, margin = margin(r = 5)),
-  panel.grid.major.y = element_line(color = "#b1b1b2", size = 0.4),
+  panel.grid.major.y = element_line(color = "#d0d0d0", size = 0.4),
   panel.grid.major.x = element_blank(),
   panel.grid.minor.y = element_blank(),
   panel.grid.minor.x = element_blank(),
@@ -53,7 +53,7 @@ cohesion_data <- tibble(
     ) %>% 
     ggplot(aes(feedback, empirical, group = 1)) +
     geom_col(fill = "#727272", color = "black", width = .8, 
-             alpha = .9, size = 0.3) + 
+             alpha = .95, size = 0.3) + 
     geom_errorbar(aes(ymin = empirical - se,
                       ymax = empirical + se),
                   color = "#22292F",
@@ -77,7 +77,7 @@ cohesion_data <- tibble(
     ) %>% 
     ggplot(aes(feedback, empirical, group = 1)) +
     geom_col(fill = "#727272", color = "black", width = .8, 
-             alpha = .9, size = 0.3) + 
+             alpha = .95, size = 0.3) + 
     geom_errorbar(aes(ymin = empirical - se,
                       ymax = empirical + se),
                   color = "#22292F",
@@ -98,5 +98,14 @@ plot_grid(local_cohesion_plot, global_cohesion_plot,
           label_size = 12)
 
 
-ggsave("figures/figure3b.png", width = 19, height = 24, unit = "cm")
+ggsave("figures/figure3.tiff", width = 19, height = 24, unit = "cm",
+       dpi = 400)
 
+
+# https://stackoverflow.com/questions/38907514/saving-a-high-resolution-image-in-r
+tiff("figures/figure3b.png", units="in", width=7.5, height=10, res=320)
+plot_grid(local_cohesion_plot, global_cohesion_plot,
+          labels = c("Local-cohesion-hypothesis", "Global-cohesion-hypothesis"),
+          ncol = 1, align = "v", axis = "b",
+          label_size = 12)
+dev.off()
